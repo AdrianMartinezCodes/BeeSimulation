@@ -1,12 +1,13 @@
-#include "bee.hpp"
+#include "Tile.hpp"
 #include <vector>
 
-class Grid(){
+class Grid{
     private:
-        std::vector<vector<char>> field[][];
+        std::vector<std::vector<Tile>> field;
     public: 
-        Grid();
-        add_to_grid(char x, char y);
-        remove_from_grid(auto bee);
-        ~Grid();
-}
+        Grid(int x, int y);
+        void add_to_grid(int x, int y);
+        void remove_from_grid(Bee bee);
+        //~Grid();
+        void display_grid();
+};

@@ -1,8 +1,8 @@
+#include <iostream>
+
 class Bee{
     private:
-        char x_cord;
-        char y_cord;
-        
+        char representation = 'B';
         enum class worker_type {
         clean,
         feedOne,
@@ -14,9 +14,12 @@ class Bee{
         };
     
     public: 
+        int x_cord;
+        int y_cord;
+        Bee();
+        Bee(int x, int y);
 
-        Bee(char x, char y);
-        void add_to_map(char x, char y);
-
-
+    friend auto operator <<(std::ostream& os, Bee const& m) -> std::ostream& { 
+        return os << m.representation;
+    }
 };
