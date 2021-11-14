@@ -1,25 +1,18 @@
+#pragma once
 #include <iostream>
 
-class Bee{
+class Bee{ 
     private:
-        char representation = 'B';
-        enum class worker_type {
-        clean,
-        feedOne,
-        feedTwo,
-        recieve,
-        beeswax,
-        field,
-        death
-        };
-    
+        std::string representation = "B";
     public: 
         int x_cord;
         int y_cord;
         Bee();
         Bee(int x, int y);
-
-    friend auto operator <<(std::ostream& os, Bee const& m) -> std::ostream& { 
-        return os << m.representation;
+        std::string get_rep(){
+            return representation;
+        }
+    friend auto operator << (std::ostream& os, Bee const& bee) -> std::ostream& { 
+        return os << bee.representation;
     }
 };
