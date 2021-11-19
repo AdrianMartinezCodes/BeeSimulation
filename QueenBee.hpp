@@ -6,10 +6,4 @@ class QueenBee : public Bee{
     public: 
         QueenBee();
         QueenBee(int x, int y);
-        std::string get_rep(){
-            return representation;
-        }
-    friend auto operator <<(std::ostream& os, QueenBee const& Bee) -> std::ostream& { 
-        return os << Bee.representation;
-    }
 };

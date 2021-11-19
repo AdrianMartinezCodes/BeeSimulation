@@ -4,12 +4,12 @@
 #include <vector>
 struct BeeHive{
     /* data */
-    std::string representation = "H";
+    const std::string representation = "H";
     int x_cord;
     int y_cord;
     int bee_counter;
     QueenBee Queen;
-    std::vector<Worker> workerVec; 
+    //std::vector<Worker> workerVec; 
     BeeHive();
     BeeHive(int x, int y);
     std::string get_rep(){

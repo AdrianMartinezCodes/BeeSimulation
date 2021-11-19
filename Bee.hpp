@@ -3,7 +3,8 @@
 
 class Bee{ 
     private:
-        std::string representation = "B";
+        const std::string REPRESENTATION = "B";
+        std::string representation = REPRESENTATION;
     public: 
         int x_cord;
         int y_cord;
@@ -12,6 +13,8 @@ class Bee{
         std::string get_rep(){
             return representation;
         }
+        //used in child classes
+        void set_rep(std::string name);
     friend auto operator << (std::ostream& os, Bee const& bee) -> std::ostream& { 
         return os << bee.representation;
     }

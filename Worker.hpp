@@ -2,7 +2,7 @@
 #include "Bee.hpp"
 class Worker: public Bee{
     private:
-        std::string representation = "W";
+        const std::string representation = "W";
         enum class worker_type {
         clean,
         feedOne,
@@ -15,10 +15,4 @@ class Worker: public Bee{
     public:
         Worker();
         Worker(int x, int y);
-        std::string get_rep(){
-            return representation;
-        }
-    friend auto operator <<(std::ostream& os, Worker const& Bee) -> std::ostream& { 
-        return os << Bee.representation;
-    }
 };
