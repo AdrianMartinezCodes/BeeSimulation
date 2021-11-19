@@ -10,18 +10,14 @@ Grid::Grid(int x, int y){
     }
 }
 
-void Grid::add_to_grid(int x,int y){
-    Bee toAdd{x,y};
-    this->field[x][y] = Tile(toAdd);
+void Grid::add_to_grid(Bee bee){
+    this->field[bee.x_cord][bee.y_cord] = Tile(bee);
 }
 
-/*Grid::~Grid(){
-    for(int i; i < this->field.size();++i){
-        for(int j; j < this->field[i].size();++j){
-            i;
-        }
-    }
-}*/
+void Grid::add_to_grid(BeeHive bee_hive){
+    this->field[bee_hive.x_cord][bee_hive.y_cord] = Tile(bee_hive);
+}
+
 void Grid::display_grid(){
     for(int i = 0; i < this->field.size();++i){
         for(int j = 0; j < this->field.at(i).size();j++){
@@ -29,4 +25,7 @@ void Grid::display_grid(){
         }
         std::cout << std::endl;
     }
+}
+Grid::~Grid(){
+    this->field.clear();
 }
