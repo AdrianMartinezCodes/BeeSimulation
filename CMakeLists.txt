@@ -15,6 +15,7 @@ set(SOURCES
     src/flower.cpp
     src/bee.cpp
     src/main.cpp
+    src/grid_functions.cpp
 )
 
 add_executable(${PROJECT_NAME}_main src/main.cpp)
@@ -37,6 +38,7 @@ set(TEST_SOURCES
     tests/test_point.cpp
     tests/test_vector.cpp
     tests/test_flower.cpp
+    tests/test_grid_functions.cpp
 )
 
 # Create an executable target for your tests
