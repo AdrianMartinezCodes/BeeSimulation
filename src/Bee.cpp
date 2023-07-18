@@ -20,6 +20,17 @@ void Bee::randomWalk(double stepSize) {
     location = Point(location.getX() + dx, location.getY() + dy);
 }
 
+void Bee::randomWalkWrap(double stepSize, int gridWidth, int gridHeight) {
+    double dx = stepSize * (2 * std::rand() / double(RAND_MAX) - 1);
+    double dy = stepSize * (2 * std::rand() / double(RAND_MAX) - 1);
+
+    // Wrap the bee's location around the grid
+    double wrappedX = std::fmod(location.getX() + dx + gridWidth, gridWidth);
+    double wrappedY = std::fmod(location.getY() + dy + gridHeight, gridHeight);
+
+    location = Point(wrappedX, wrappedY);
+}
+
 void Bee::useAStar(std::vector<Flower>& flowers) {
     const Flower* nearestFlower = nullptr;
     double nearestDistanceSquared = std::numeric_limits<double>::max(); // Use squared distance
@@ -56,4 +67,14 @@ void Bee::useAStar(std::vector<Flower>& flowers) {
             flowers.erase(it);
         }
     }
+}
+void Bee::useAStarWrap(std::vector<Flower>& flowers, int gridWidth, int gridHeight){
+    // Use the existing useAStar function for wrapping
+    useAStar(flowers);
+
+    // Wrap the bee's location around the grid
+    double wrappedX = std::fmod(location.getX() + gridWidth, gridWidth);
+    double wrappedY = std::fmod(location.getY() + gridHeight, gridHeight);
+
+    location = Point(wrappedX, wrappedY);
 }
