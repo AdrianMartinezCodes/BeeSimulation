@@ -1,21 +1,22 @@
-#pragma once
-#include <iostream>
+#ifndef BEE_H
+#define BEE_H
 
-class Bee{ 
-    private:
-        const std::string REPRESENTATION = "B";
-        std::string representation = REPRESENTATION;
-    public: 
-        int x_cord;
-        int y_cord;
-        Bee();
-        Bee(int x, int y);
-        std::string get_rep(){
-            return representation;
-        }
-        //used in child classes
-        void set_rep(std::string name);
-    friend auto operator << (std::ostream& os, Bee const& bee) -> std::ostream& { 
-        return os << bee.representation;
-    }
+#include "point.hpp"
+#include "flower.hpp"
+#include <vector>
+
+class Bee {
+public:
+    Bee(double charge, const Point& location);
+
+    double getCharge() const;
+    const Point& getLocation() const;
+    void randomWalk(double stepSize);
+    void useAStar(std::vector<Flower>& flowers);
+
+private:
+    double charge;
+    Point location;
 };
+
+#endif  // BEE_H
