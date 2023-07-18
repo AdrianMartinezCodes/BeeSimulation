@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.12)
-project(BeeSimlutation)
+project(BeeSimulation VERSION 0.1)
 
 # Set C++ standard to C++11
 set(CMAKE_CXX_STANDARD 11)
@@ -18,10 +18,8 @@ set(SOURCES
     src/grid_functions.cpp
 )
 
-add_executable(${PROJECT_NAME}_main src/main.cpp)
-
 # Create a library target for your project
-add_library(${PROJECT_NAME} ${SOURCES})
+add_library(${PROJECT_NAME}_lib ${SOURCES})
 
 # Include Catch2 using FetchContent
 include(FetchContent)
@@ -45,12 +43,21 @@ set(TEST_SOURCES
 add_executable(${PROJECT_NAME}_test ${TEST_SOURCES})
 
 # Link the Catch2 library to the test executable
-target_link_libraries(${PROJECT_NAME}_test PRIVATE Catch2::Catch2WithMain ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME}_test PRIVATE Catch2::Catch2WithMain ${PROJECT_NAME}_lib)
+
+# Create the main executable target
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 # Link the library to the main executable
-target_link_libraries(${PROJECT_NAME}_main PRIVATE ${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_lib)
 
 # Add a custom test target to run the tests
 enable_testing()
 add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}_test)
 
+# Set the installation target for the BeeSimulation executable
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin
+)
+# Set the output directory for the executable
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
