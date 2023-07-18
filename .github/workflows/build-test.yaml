@@ -1,0 +1,103 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-windows:
+    name: Build and Test on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+
+      - name: Build project
+        run: cmake -B build
+        working-directory: ${{ github.workspace }}
+        
+      - name: Compile
+        run: cmake --build build
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: cmake --build build --target test
+        working-directory: ${{ github.workspace }}
+
+  build-test-linux:
+    name: Build and Test on Linux
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        run: sudo apt-get update && sudo apt-get install -y cmake
+
+      - name: Build project
+        run: cmake -B build
+        working-directory: ${{ github.workspace }}
+        
+      - name: Compile
+        run: cmake --build build
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: cmake --build build --target test
+        working-directory: ${{ github.workspace }}
+
+  build-test-macos:
+    name: Build and Test on macOS
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up CMake
+        run: brew install cmake
+
+      - name: Build project
+        run: cmake -B build
+        working-directory: ${{ github.workspace }}
+        
+      - name: Compile
+        run: cmake --build build
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: cmake --build build --target test
+        working-directory: ${{ github.workspace }}
+
+  run-tests:
+    name: Run Catch2 Tests
+    runs-on: ubuntu-latest
+    needs:
+      - build-test-windows
+      - build-test-linux
+      - build-test-macos
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up CMake
+        run: sudo apt-get update && sudo apt-get install -y cmake
+
+      - name: Build project
+        run: cmake -B build
+        working-directory: ${{ github.workspace }}
+        
+      - name: Compile
+        run: cmake --build build
+        working-directory: ${{ github.workspace }}
+
+      - name: Run tests
+        run: cmake --build build --target test
+        working-directory: ${{ github.workspace }}
